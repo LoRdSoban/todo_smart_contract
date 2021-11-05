@@ -3,13 +3,10 @@
 ;;
 (define-constant TASKS_DOESNT_EXIST (err u0))
 (define-constant INVALID_INDEX (err u1))
-
+(define-constant TASKS_ALREADY_ADDED (err u2))
 ;; data maps and vars
 ;;
 (define-map tasks principal (list 10 (string-ascii 20)))
-
-;; private functions
-;;
 
 ;; public functions
 ;;
@@ -17,8 +14,13 @@
 
 (begin  
 
+;; checks if tasks have been already added
+(asserts! (is-eq (is-none (map-get? tasks tx-sender)) true) TASKS_ALREADY_ADDED)
 
-(ok (map-set tasks
+(ok (map-set tasks tx-sender (list t1 t2 t3)))
+
+)
+)
 
 (define-public (delete_task) 
 
